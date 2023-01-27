@@ -325,6 +325,7 @@ vis.binds["vis-material-advanced"] = {
         function update(state, state2) {
             $div.find('.vma_picture').find('img').attr('src', icon);
             var st1, st2;
+            if (state !== null)
             try {
                 st1 = state.toFixed(1);
 
@@ -333,6 +334,7 @@ vis.binds["vis-material-advanced"] = {
                 st1 = "NaN";
 
             }
+            if (state2 !== null)
             try {
                 st2 = state2.toFixed(1);
             } catch (err) {
@@ -347,7 +349,10 @@ vis.binds["vis-material-advanced"] = {
         if (data.oid) {
             // subscribe on updates of value
             vis.states.bind(data.oid + '.val', function (e, newVal, oldVal) {
-                update(newVal);
+                update(newVal, null);
+            });
+            vis.states.bind(data.oid2 + '.val', function (e, newVal, oldVal) {
+                update(null, newVal);
             });
 
             // set current value
