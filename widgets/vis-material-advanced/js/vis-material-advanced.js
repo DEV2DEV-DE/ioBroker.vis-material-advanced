@@ -326,21 +326,16 @@ vis.binds["vis-material-advanced"] = {
             console.log("Update widget with kind: " + kind);
             $div.find('.vma_picture').find('img').attr('src', icon);
             var st1, st2;
-            if (kind == 'both' || kind == 'temp')
             try {
                 st1 = state.toFixed(1);
-
             } catch (err) {
-                console.log("updateKind: " + kind);
                 console.log("unkown Error " + err + " occured, setting value to NaN, original was : '" + state + "'");
                 st1 = "NaN";
 
             }
-            if (kind == 'both' || kind == 'hum')
             try {
                 st2 = state2.toFixed(1);
             } catch (err) {
-                console.log("updateKind: " + kind);
                 console.log("unkown Error " + err + " occured, setting value to NaN, original was : '" + state2 + "'");
                 st2 = "NaN";
             }
@@ -352,10 +347,10 @@ vis.binds["vis-material-advanced"] = {
         if (data.oid) {
             // subscribe on updates of value
             vis.states.bind(data.oid + '.val', function (e, newVal, oldVal) {
-                update(newVal, 0, 'temp');
+                update(newVal, vis.states[data.oid2 + '.val'], 'temp');
             });
             vis.states.bind(data.oid2 + '.val', function (e, newVal, oldVal) {
-                update(0, newVal, 'hum');
+                update(vis.states[data.oid + '.val'], newVal, 'hum');
             });
 
             // set current value
