@@ -323,6 +323,7 @@ vis.binds["vis-material-advanced"] = {
         }
 
         function update(state, state2, kind) {
+            console.log("Update widget with kind: " + kind);
             $div.find('.vma_picture').find('img').attr('src', icon);
             var st1, st2;
             if (kind == 'both' || kind == 'temp')
@@ -351,10 +352,10 @@ vis.binds["vis-material-advanced"] = {
         if (data.oid) {
             // subscribe on updates of value
             vis.states.bind(data.oid + '.val', function (e, newVal, oldVal) {
-                update(newVal, null, 'temp');
+                update(newVal, 0, 'temp');
             });
             vis.states.bind(data.oid2 + '.val', function (e, newVal, oldVal) {
-                update(null, newVal, 'hum');
+                update(0, newVal, 'hum');
             });
 
             // set current value
